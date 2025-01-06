@@ -1,11 +1,12 @@
 name: Export KiCad Images
 
 on:
-  push:
-    paths:
-      - '**/*.kicad_sch'
-      - '**/*.kicad_pcb'
-  workflow_dispatch: 
+  workflow_call: # This makes the workflow reusable
+    inputs:
+      paths:
+        required: false
+        type: array
+        default: ['**/*.kicad_sch', '**/*.kicad_pcb']
 
 jobs:
   export-kicad-files:
