@@ -36,7 +36,7 @@ jobs:
           rm -r images/sch
 
           # Export PCB
-          kicad-cli pcb export svg -o 'images/pcb.svg' --page-size-mode 2 --exclude-drawing-sheet --layers 'F.Cu,F.SilkS,F.Mask' kicad/*.kicad_pcb
+          kicad-cli pcb export svg -o 'images/pcb.svg' --page-size-mode 2 --exclude-drawing-sheet --layers 'F.Cu,F.SilkS,F.Mask,Edge.Cuts' kicad/*.kicad_pcb
 
           # Export 3D model
           kicad-cli pcb export step --output 'images/board.step' kicad/*.kicad_pcb
