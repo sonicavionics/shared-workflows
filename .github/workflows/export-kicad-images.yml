@@ -29,8 +29,10 @@ jobs:
       run: |
         echo "Exporting schematic, PCB, and 3D model..."
         docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace kicad/kicad:nightly-full bash -c "
-          # Export schematic
+
           export KICAD8_3DMODEL_DIR=/usr/share/kicad/3dmodels/
+          
+          # Export schematic
           mkdir -p images
           kicad-cli sch export svg -o 'images/sch' kicad/*.kicad_sch
           mv images/sch/*.svg images/sch.svg
