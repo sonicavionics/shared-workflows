@@ -99,7 +99,7 @@ jobs:
 
           # Step 5: Crop Imgae
           sudo apt install -y imagemagick
-          magick /workspace/images/board.png -trim /workspace/images/board.png
+          convert /workspace/images/board.png -trim /workspace/images/board.png
 
           # # Step 5: Clean up
           # rm /workspace/images/board.front.wrl
