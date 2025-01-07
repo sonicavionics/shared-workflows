@@ -51,8 +51,11 @@ jobs:
     - name: Export files using KiCad Docker container
       run: |
         echo "Exporting schematic, PCB, and 3D model..."
-        docker run --rm -v "$(pwd):/workspace" kicad/kicad:8.0 bash -c '
+        docker run --rm -v "$(pwd):/workspace" kicad/kicad:nightly-full bash -c '
           set -e
+
+          export KICAD8_3DMODEL_DIR=/usr/share/kicad/3dmodels/
+          
           cd /workspace
           mkdir -p images
 
