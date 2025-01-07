@@ -17,7 +17,7 @@ jobs:
     - name: Pull KiCad Docker image
       run: |
         echo "Pulling KiCad Docker image..."
-        docker pull kicad/kicad:8.0
+        docker pull kicad/nightly-full
 
     - name: Set directory permissions
       run: |
@@ -28,8 +28,9 @@ jobs:
     - name: Export schematic, PCB, and 3D model
       run: |
         echo "Exporting schematic, PCB, and 3D model..."
-        docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace kicad/kicad:8.0 bash -c "
+        docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace kicad/nightly-fullbash -c "
           # Export schematic
+          export KICAD8_3DMODEL_DIR=/usr/share/kicad/3dmodels/
           mkdir -p images
           kicad-cli sch export svg -o 'images/sch' kicad/*.kicad_sch
           mv images/sch/*.svg images/sch.svg
