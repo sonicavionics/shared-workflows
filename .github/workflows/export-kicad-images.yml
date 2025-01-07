@@ -98,7 +98,7 @@ jobs:
               --scene-bg-color 1 1 1
 
           # Step 5: Crop Imgae
-          sudo apt install imagemagick
+          sudo apt install -y imagemagick
           magick /workspace/images/board.png -trim /workspace/images/board.png
 
           # # Step 5: Clean up
