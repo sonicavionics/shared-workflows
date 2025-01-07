@@ -97,6 +97,10 @@ jobs:
               --camera-dir 0 0 -1 \
               --scene-bg-color 1 1 1
 
+          # Step 5: Crop Imgae
+          sudo apt install imagemagick
+          magick /workspace/images/board.png -trim /workspace/images/board.png
+
           # # Step 5: Clean up
           # rm /workspace/images/board.front.wrl
           # rm /workspace/images/board.wrl
