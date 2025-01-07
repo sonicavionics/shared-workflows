@@ -1,22 +1,27 @@
-name: Append Wow Reusable Workflow
+name: Append Message Reusable Workflow
 
 on:
   workflow_call:
+    inputs:
+      message:
+        description: "Message to append to README.md"
+        required: true
+        type: string
 
 jobs:
-  append-wow:
+  append-message:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
 
-      - name: Append 'wow' to README.md
-        run: echo "wow" >> README.md
+      - name: Append message to README.md
+        run: echo "${{ inputs.message }}" >> README.md
 
       - name: Commit changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Appended wow to README.md" || echo "No changes to commit"
+          git commit -m "Appended message to README.md" || echo "No changes to commit"
           git push
