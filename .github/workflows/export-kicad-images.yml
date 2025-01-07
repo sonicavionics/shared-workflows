@@ -100,10 +100,11 @@ jobs:
           # Step 5: Crop Imgae
           sudo apt install -y imagemagick
           convert /workspace/images/board.png -trim /workspace/images/board.png
+          convert /workspace/images/board.png -trim /workspace/images/board.png
+          convert -density 300 /workspace/images/pcbf.svg -trim /workspace/images/pcbf.png
+          convert -density 300 /workspace/images/pcbb.svg -trim /workspace/images/pcbb.png
 
-          # # Step 5: Clean up
-          # rm /workspace/images/board.front.wrl
-          # rm /workspace/images/board.wrl
+
 
           echo "Script execution completed."
         '
