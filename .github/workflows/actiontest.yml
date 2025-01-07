@@ -1,0 +1,19 @@
+name: "Append Wow to README"
+description: "Appends 'wow' to README.md"
+outputs: {}
+runs:
+  using: "composite"
+  steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Append 'wow' to README.md
+      run: echo "wow" >> README.md
+
+    - name: Commit changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add README.md
+        git commit -m "Appended wow to README.md" || echo "No changes to commit"
+        git push
