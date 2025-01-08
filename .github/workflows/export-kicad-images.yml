@@ -131,14 +131,16 @@ jobs:
               --ortho -2 -2 2 2
            
           # Step 5: Crop Imgae
-          sudo apt install -y imagemagick
           sudo apt install -y sed
+          sudo apt install -y inkscape
+          
           convert /workspace/images/board.front.png -trim -transparent blue /workspace/images/board.front.png
           convert /workspace/images/board.back.png -trim -transparent blue /workspace/images/board.back.png
           sed -i 's/fill="white"/fill="none"/g' /workspace/images/pcbf.svg
           sed -i 's/fill="white"/fill="none"/g' /workspace/images/pcbb.svg
-          convert -density 300 /workspace/images/pcbf.svg -background none -trim /workspace/images/pcbf.png
-          convert -density 300 /workspace/images/pcbb.svg -background none -trim /workspace/images/pcbb.png
+          
+          inkscape --export-area-drawing --export-filename=pcbf.svg pcbf.svg --verbose
+          inkscape --export-area-drawing --export-filename=pcbb.svg pcbb.svg --verbose
 
 
           echo "Script execution completed."
