@@ -98,6 +98,7 @@ jobs:
               "/workspace/images/board.front.wrl" \
               "/workspace/images/board.png" \
               --camera-pos 0 0 6 \
+              --ortho \
               --camera-dir 0 0 -1 \
               --scene-bg-color 1 1 1
 
