@@ -73,7 +73,7 @@ jobs:
               4320 4320 \
               "/workspace/images/board.front.wrl" \
               "/workspace/images/board.front.png" \
-              --camera-pos 0 0 6 \
+              --camera-pos 0 0 -6 \
               --camera-dir 0 0 1 \
               --scene-bg-color 1 1 1 \
               --ortho -2 -2 2 2
