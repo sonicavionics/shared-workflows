@@ -139,8 +139,8 @@ jobs:
           sed -i 's/fill="white"/fill="none"/g' /workspace/images/pcbf.svg
           sed -i 's/fill="white"/fill="none"/g' /workspace/images/pcbb.svg
           
-          inkscape --export-area-drawing --export-filename=pcbf.svg pcbf.svg --verbose
-          inkscape --export-area-drawing --export-filename=pcbb.svg pcbb.svg --verbose
+          inkscape --export-area-drawing --export-filename=pcbf.svg pcbf.svg
+          inkscape --export-area-drawing --export-filename=pcbb.svg pcbb.svg
 
 
           echo "Script execution completed."
