@@ -91,11 +91,11 @@ jobs:
           echo "] }" >> "board.front.wrl"
 
           # Convert to PNG using Rayhunter FRONT
-          echo "Converting /workspace/images/board.front.wrl to board.png..."
+          echo "Converting /workspace/images/board.front.wrl to board.front.png..."
           rayhunter classic 7 \
               4320 4320 \
               "/workspace/images/board.front.wrl" \
-              "/workspace/images/board.png" \
+              "/workspace/images/board.front.png" \
               --camera-pos 0 0 6 \
               --camera-dir 0 0 -1 \
               --scene-bg-color 1 1 1 \
@@ -121,7 +121,7 @@ jobs:
           rayhunter classic 7 \
               4320 4320 \
               "/workspace/images/board.back.wrl" \
-              "/workspace/images/board_back.png" \
+              "/workspace/images/board.back.png" \
               --camera-pos 0 0 -6 \
               --camera-dir 0 0 1 \
               --scene-bg-color 1 1 1 \
@@ -129,8 +129,8 @@ jobs:
            
           # Step 5: Crop Imgae
           sudo apt install -y imagemagick
-          convert /workspace/images/board.png -trim /workspace/images/board.png
-          convert /workspace/images/board.png -trim /workspace/images/board.png
+          convert /workspace/images/board.front.png -trim /workspace/images/board.front.png
+          convert /workspace/images/board.back.png -trim /workspace/images/board.back.png
           convert -density 300 /workspace/images/pcbf.svg -trim /workspace/images/pcbf.png
           convert -density 300 /workspace/images/pcbb.svg -trim /workspace/images/pcbb.png
 
