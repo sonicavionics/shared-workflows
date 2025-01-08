@@ -99,7 +99,8 @@ jobs:
               "/workspace/images/board.png" \
               --camera-pos 0 0 6 \
               --camera-dir 0 0 -1 \
-              --scene-bg-color 1 1 1
+              --scene-bg-color 1 1 1 \
+              --ortho -2 -2 2 2
 
           # Step 5: Crop Imgae
           sudo apt install -y imagemagick
