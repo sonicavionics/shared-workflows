@@ -73,11 +73,12 @@ jobs:
               4320 4320 \
               "/workspace/images/board.front.wrl" \
               "/workspace/images/board.front.png" \
-              --camera-pos 0 0 6 \
-              --camera-dir 0 0 -1 \
+              --camera-pos 0 8.49 -6 \
+              --camera-dir 0 -1.41 1 \
+              --camera-up 0 0 1 \
               --scene-bg-color 1 1 1 \
-              --ortho -2 -2 2 2
-           
+              --ortho -4 -4 4 4
+                     
           # # Step 5: Crop Imgae
           # sudo apt install -y imagemagick
           # convert /workspace/images/board.front.png -trim /workspace/images/board.front.png
