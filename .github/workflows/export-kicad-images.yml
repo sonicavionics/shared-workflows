@@ -99,33 +99,35 @@ jobs:
               "/workspace/images/board.front.png" \
               --camera-pos 0 0 6 \
               --camera-dir 0 0 -1 \
-              --scene-bg-color 1 1 1 \
+              --scene-bg-color 0 0 0 \
               --ortho -2 -2 2 2
               
           # Add lighting effects to VRML BACK
+          cd /workspace/images
           head -1 "board.wrl" > "board.back.wrl"
           cat <<EOF >> "board.back.wrl"
         Transform {
             children [
               DirectionalLight {
                   on TRUE
-                  intensity 0.63
-                  ambientIntensity 0.21
+                  intensity 0.8
+                  ambientIntensity 0.3
                   color 1.0 1.0 1.0
-                  direction 0.1 -0.1 -1
-              }
+                  direction 0.0 0.0 1.0
+              }   
         EOF
           cat "board.wrl" >> "board.back.wrl"
           echo "] }" >> "board.back.wrl"
 
           # Convert to PNG using Rayhunter BACK
+          echo "Converting /workspace/images/board.back.wrl to board.back.png..."
           rayhunter classic 7 \
               4320 4320 \
-              "/workspace/images/board.back.wrl" \
-              "/workspace/images/board.back.png" \
+              "board.back.wrl" \
+              "board.back.png" \
               --camera-pos 0 0 -6 \
               --camera-dir 0 0 1 \
-              --scene-bg-color 1 1 1 \
+              --scene-bg-color 0 0 0 \
               --ortho -2 -2 2 2
            
           # Step 5: Crop Imgae
