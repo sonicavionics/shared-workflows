@@ -24,67 +24,19 @@ jobs:
         echo "Setting directory permissions to 777..."
         sudo chmod -R 777 .
 
-
-
-    - name: Export files using KiCad Docker container
+    # Run KiCad Docker container to export files
+    - name: Export schematic, PCB, and 3D model
       run: |
         echo "Exporting schematic, PCB, and 3D model..."
-        docker run --rm -v "$(pwd):/workspace" kicad/kicad:nightly-full bash -c '
-          set -e
+        docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace kicad/kicad:nightly-full bash -c "
 
-          export KICAD8_3DMODEL_DIR=/usr/share/kicad/3dmodels/
-          
-          cd /workspace
+          # Export schematic
           mkdir -p images
-
-          # Export VRML file from KiCAD
-          kicad-cli pcb export vrml --output "images/board.wrl" kicad/*.kicad_pcb
-
-          # Step 2: Install Rayhunter
-          echo "Installing Rayhunter..."
-          mkdir -p ~/Downloads
-          cd ~/Downloads
-          sudo apt-get update
-          sudo apt-get install -y wget libpng-dev
-          wget https://master.dl.sourceforge.net/project/castle-engine/rayhunter/rayhunter-1.3.4-linux-x86_64.tar.gz
-          tar xzvf rayhunter-1.3.4-linux-x86_64.tar.gz
-          sudo install -m 0755 ~/Downloads/rayhunter/rayhunter /usr/local/bin/rayhunter
-
-          # Add lighting effects to VRML BACK
-          cd /workspace/images
-          head -1 "board.wrl" > "board.back.wrl"
-          cat <<EOF >> "board.back.wrl"
-        Transform {
-            children [
-              DirectionalLight {
-                  on TRUE
-                  intensity 0.8
-                  ambientIntensity 0.3
-                  color 1.0 1.0 1.0
-                  direction 0.0 0.0 1.0
-              }   
-        EOF
-          cat "board.wrl" >> "board.back.wrl"
-          echo "] }" >> "board.back.wrl"
-
-          # Convert to PNG using Rayhunter BACK
-          echo "Converting /workspace/images/board.back.wrl to board.back.png..."
-          rayhunter classic 7 \
-              4320 4320 \
-              "board.back.wrl" \
-              "board.back.png" \
-              --camera-pos 0 0 -6 \
-              --camera-dir 0 0 1 \
-              --scene-bg-color 0 0 0 \
-              --ortho -2 -2 2 2
-                     
-          # # Step 5: Crop Imgae
-          # sudo apt install -y imagemagick
-          # convert /workspace/images/board.back.png -trim /workspace/images/board.back.png
-
-          echo "Script execution completed."
-        '
-
+          kicad-cli sch export svg -o 'images/sch.svg' kicad/*.kicad_sch
+          sudo mv *.svg images/sch.svg
+          
+          exit
+        "
       # Commit and push the changes
     - name: Commit and push changes
       run: |
@@ -92,7 +44,7 @@ jobs:
         git config --global user.email "actions@github.com"
         git pull
         git add images/*
-        git commit -m "Auto-exported schematic, PCB, and 3D model"
+        git commit -m "Auto-exported schematic"
         git push
 
     # Notify the user about completion
