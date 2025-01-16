@@ -1,4 +1,4 @@
-name: Export KiCad Images
+name: test
 
 on:
   workflow_call: # This makes the workflow reusable
