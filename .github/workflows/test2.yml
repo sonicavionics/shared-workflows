@@ -38,6 +38,7 @@ jobs:
         run: |
           git add test.txt
           git commit -m "Append 'test' to test.txt" || echo "No changes to commit."
+          git remote set-url origin "https://x-access-token:${{ steps.create_app_token.outputs.token }}@github.com/${{ github.repository }}.git"
           git push origin main
         env:
           GITHUB_TOKEN: ${{ steps.create_app_token.outputs.token }}
