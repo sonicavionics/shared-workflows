@@ -24,6 +24,8 @@ jobs:
       # 2) Check out the repository so we can modify files
       - name: Check out code
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       # 3) Configure Git user/email
       - name: Configure Git
