@@ -2,6 +2,11 @@ name: test2
 
 on:
   workflow_call:
+    secrets:
+      APP_ID:
+        required: true
+      APP_PRIVATE_KEY:
+        required: true
 
 jobs:
   job:
@@ -10,9 +15,8 @@ jobs:
       - id: create_token
         uses: tibdex/github-app-token@v2.1.0
         with:
+          # Use the passed-in secrets
           app_id: ${{ secrets.APP_ID }}
-
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
-   
 
       - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
