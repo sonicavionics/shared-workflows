@@ -10,6 +10,8 @@ on:
 
 jobs:
   job:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       # 1) Retrieve the GitHub App token
