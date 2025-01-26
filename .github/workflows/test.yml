@@ -201,4 +201,4 @@ jobs:
 
       # 10) Notify completion
       - name: Notify completion
-        run: echo "Exported KiCad images (and updated test.txt) and pushed changes to the repository."
+        run: echo "Exported KiCad images and pushed changes to the repository."
