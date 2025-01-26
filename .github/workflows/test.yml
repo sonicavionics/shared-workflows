@@ -187,7 +187,7 @@ jobs:
       # 9) Commit and push changes to the main branch using the GitHub App token
       - name: Commit and push changes
         run: |
-          # Add both test.txt and images/ directory to the commit
+          # Add images/ directory to the commit
           git add images/
 
           # Commit with a descriptive message
