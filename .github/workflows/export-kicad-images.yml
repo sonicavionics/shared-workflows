@@ -46,27 +46,29 @@ jobs:
         run: |
           echo "Exporting schematic, PCB, and 3D model..."
           docker run --rm -v "${{ github.workspace }}:/workspace" -w /workspace kicad/kicad:nightly-full bash -c "
-  
             export KICAD8_3DMODEL_DIR=/usr/share/kicad/3dmodels/
             export KICAD9_3DMODEL_DIR=/usr/share/kicad/3dmodels/
-
-            
+      
             # Export schematic
             mkdir -p images
             kicad-cli sch export svg -o 'images/sch' kicad/*.kicad_sch
-            sudo mv images/sch/*.svg images/sch.svg
-            sudo rm -r images/sch
-            
+            mv images/sch/*.svg images/sch.svg
+            rm -r images/sch
+      
             # Export PCB front
             kicad-cli pcb export svg --mode-single -o 'images/pcbf.svg' --page-size-mode 2 --exclude-drawing-sheet --layers 'F.Cu,F.SilkS,F.Mask,Edge.Cuts' kicad/*.kicad_pcb
-            
+      
             # Export PCB back
             kicad-cli pcb export svg --mode-single -o 'images/pcbb.svg' --page-size-mode 2 -m --exclude-drawing-sheet --layers 'B.Cu,B.SilkS,B.Mask,Edge.Cuts' kicad/*.kicad_pcb
-  
-            # Export 3D model
-            kicad-cli pcb export step --output 'images/board.step' kicad/*.kicad_pcb
-  
-            exit
+      
+            # Export 3D model (tolerate warnings, check output)
+            kicad-cli pcb export step --output 'images/board.step' kicad/*.kicad_pcb || echo \"Warning: STEP export encountered issues, checking output...\"
+            if [ -f images/board.step ]; then
+              echo \"STEP file created successfully.\"
+            else
+              echo \"Error: STEP file not created.\"
+              exit 1
+            fi
           "
   
   
